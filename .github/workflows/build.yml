@@ -60,7 +60,7 @@ jobs:
           path: ./out/MusicFree-${{ env.VERSION }}-win32-x64-portable.zip
           retention-days: 30
 
-    build-windows-arm64:
+  build-windows-arm64:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
           name: MusicFree-${{ env.VERSION }}-arm64-portable
           path: ./out/MusicFree-${{ env.VERSION }}-arm64-portable.zip
           retention-days: 30
-  
+
   build-windows-legacy:
     runs-on: windows-latest
     steps:
