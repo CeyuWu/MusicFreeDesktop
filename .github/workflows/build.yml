@@ -60,7 +60,7 @@ jobs:
           path: ./out/MusicFree-${{ env.VERSION }}-win32-x64-portable.zip
           retention-days: 30
 
-  build-windows-arm64:
+    build-windows-arm64:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -74,10 +74,9 @@ jobs:
         run: |
           $version = node -p "require('./package.json').version"
           echo "VERSION=$version" >> $env:GITHUB_ENV
-      - name: Build ARM64
-      - run: |
-          $env:CONFIGURATION = "arm64"
-          pnpm run package -- --win arm64
+      # 修复：Electron‑Forge 使用 --arch=arm64，和macOS写法统一
+      - name: Build Windows ARM64
+        run: pnpm run package -- --arch=arm64
       - uses: maotoumao/inno-setup-action-cli@main
         with:
           filepath: ./release/build-windows.iss
@@ -101,7 +100,7 @@ jobs:
           name: MusicFree-${{ env.VERSION }}-arm64-portable
           path: ./out/MusicFree-${{ env.VERSION }}-arm64-portable.zip
           retention-days: 30
-
+  
   build-windows-legacy:
     runs-on: windows-latest
     steps:
